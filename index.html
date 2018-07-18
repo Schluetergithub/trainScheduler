@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+
+<html lang="en-us">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <title>Example of Time Telling</title>
+
+  <link rel="stylesheet" type="text/css" href="assets/train.css">
+
+  
+
+
+</head>
+
+<body>
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-12">
+
+                    <div class="jumbotron">
+
+                            <h1 class="display-4">Anytime Is Train Time!</h1>
+                            <p class="lead">Choo Choo, Motherfucker.</p>
+                            <hr class="my-4">
+                            
+                          </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <div class="col-12">
+
+                    <table class="table table-striped table-dark">
+
+                            <thead>
+                              <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">First</th>
+                                <th scope="col">Last</th>
+                                <th scope="col">Handle</th>
+                              </tr>
+                            </thead>
+
+                            <tbody>
+                              <tr>
+                                <th scope="row">1</th>
+                                <td>Mark</td>
+                                <td>Otto</td>
+                                <td>@mdo</td>
+                              </tr>
+                              <tr>
+                                <th scope="row">2</th>
+                                <td>Jacob</td>
+                                <td>Thornton</td>
+                                <td>@fat</td>
+                              </tr>
+                              <tr>
+                                <th scope="row">3</th>
+                                <td>Larry</td>
+                                <td>the Bird</td>
+                                <td>@twitter</td>
+                              </tr>
+
+                            </tbody>
+
+                          </table>
+
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <div class="col-12">
+
+                    <form>
+                            <div class="form-group">
+                                <label for="formGroupExampleInput">Train Name</label>
+                                <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="formGroupExampleInput2">Destination</label>
+                                <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Another input">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="formGroupExampleInput2">First Train Time </label>
+                                <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Another input">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="formGroupExampleInput2">Frequency (min)</label>
+                                <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Another input">
+                            </div>
+
+                    </form>
+
+            </div>
+
+        </div>
+
+            <!-- Script -->
+
+            <script>
+                // Assume the following situations.
+
+                // (TEST 1)
+                // First Train of the Day is 3:00 AM
+                // Assume Train comes every 3 minutes.
+                // Assume the current time is 3:16 AM....
+                // What time would the next train be...? (Use your brain first)
+                // It would be 3:18 -- 2 minutes away
+
+                // (TEST 2)
+                // First Train of the Day is 3:00 AM
+                // Assume Train comes every 7 minutes.
+                // Assume the current time is 3:16 AM....
+                // What time would the next train be...? (Use your brain first)
+                // It would be 3:21 -- 5 minutes away
+
+
+                // ==========================================================
+
+                // Solved Mathematically
+                // Test case 1:
+                // 16 - 00 = 16
+                // 16 % 3 = 1 (Modulus is the remainder)
+                // 3 - 1 = 2 minutes away
+                // 2 + 3:16 = 3:18
+
+                // Solved Mathematically
+                // Test case 2:
+                // 16 - 00 = 16
+                // 16 % 7 = 2 (Modulus is the remainder)
+                // 7 - 2 = 5 minutes away
+                // 5 + 3:16 = 3:21
+
+                // Assumptions
+                var tFrequency = 3;
+
+                // Time is 3:30 AM
+                var firstTime = "03:30";
+
+                // First Time (pushed back 1 year to make sure it comes before current time)
+                var firstTimeConverted = moment(firstTime, "HH:mm").subtract(1, "years");
+                console.log(firstTimeConverted);
+
+                // Current Time
+                var currentTime = moment();
+                console.log("CURRENT TIME: " + moment(currentTime).format("hh:mm"));
+
+                // Difference between the times
+                var diffTime = moment().diff(moment(firstTimeConverted), "minutes");
+                console.log("DIFFERENCE IN TIME: " + diffTime);
+
+                // Time apart (remainder)
+                var tRemainder = diffTime % tFrequency;
+                console.log(tRemainder);
+
+                // Minute Until Train
+                var tMinutesTillTrain = tFrequency - tRemainder;
+                console.log("MINUTES TILL TRAIN: " + tMinutesTillTrain);
+
+                // Next Train
+                var nextTrain = moment().add(tMinutesTillTrain, "minutes");
+                console.log("ARRIVAL TIME: " + moment(nextTrain).format("hh:mm"));
+            </script>
+
+    <!-- end of container -->
+    </div> 
+            
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
+
+    <!-- Added Moment JS -->
+    <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+
+</body>
+
+</html>
